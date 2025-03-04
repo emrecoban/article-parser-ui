@@ -1,13 +1,28 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { FileText, Plus, LogOut, Edit, Trash2, CheckCircle, XCircle } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { useState } from "react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  FileText,
+  Plus,
+  LogOut,
+  Edit,
+  Trash2,
+  CheckCircle,
+  XCircle,
+} from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Dialog,
   DialogContent,
@@ -16,12 +31,25 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 export default function TeacherDashboard() {
   const [criteria, setCriteria] = useState([
@@ -46,9 +74,9 @@ export default function TeacherDashboard() {
       type: "format-check",
       parameters: { format: "APA" },
     },
-  ])
+  ]);
 
-  const [students, setStudents] = useState([
+  const [students] = useState([
     {
       id: 1,
       name: "Ahmet Yılmaz",
@@ -70,7 +98,7 @@ export default function TeacherDashboard() {
       manuscripts: 0,
       lastActive: "2023-11-28",
     },
-  ])
+  ]);
 
   const [manuscripts, setManuscripts] = useState([
     {
@@ -97,28 +125,28 @@ export default function TeacherDashboard() {
       status: "evaluated",
       results: { passed: 3, failed: 0 },
     },
-  ])
+  ]);
 
   const [newCriterion, setNewCriterion] = useState({
     name: "",
     description: "",
     type: "word-count",
     parameters: {},
-  })
+  });
 
   const handleAddCriterion = () => {
-    setCriteria([...criteria, { ...newCriterion, id: criteria.length + 1 }])
+    setCriteria([...criteria, { ...newCriterion, id: criteria.length + 1 }]);
     setNewCriterion({
       name: "",
       description: "",
       type: "word-count",
       parameters: {},
-    })
-  }
+    });
+  };
 
   const handleDeleteCriterion = (id) => {
-    setCriteria(criteria.filter((c) => c.id !== id))
-  }
+    setCriteria(criteria.filter((c) => c.id !== id));
+  };
 
   const handleEvaluateManuscript = (id) => {
     setManuscripts(
@@ -127,13 +155,16 @@ export default function TeacherDashboard() {
           return {
             ...m,
             status: "evaluated",
-            results: { passed: Math.floor(Math.random() * 3) + 1, failed: Math.floor(Math.random() * 2) },
-          }
+            results: {
+              passed: Math.floor(Math.random() * 3) + 1,
+              failed: Math.floor(Math.random() * 2),
+            },
+          };
         }
-        return m
-      }),
-    )
-  }
+        return m;
+      })
+    );
+  };
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -146,10 +177,15 @@ export default function TeacherDashboard() {
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
               <Avatar className="h-8 w-8">
-                <AvatarImage src="/placeholder.svg?height=32&width=32" alt="@teacher" />
+                <AvatarImage
+                  src="/placeholder.svg?height=32&width=32"
+                  alt="@teacher"
+                />
                 <AvatarFallback>ÖĞ</AvatarFallback>
               </Avatar>
-              <span className="text-sm font-medium hidden md:inline-block">Dr. Ayşe Öğretmen</span>
+              <span className="text-sm font-medium hidden md:inline-block">
+                Dr. Ayşe Öğretmen
+              </span>
             </div>
             <Link href="/login">
               <Button variant="ghost" size="icon">
@@ -163,9 +199,12 @@ export default function TeacherDashboard() {
       <main className="flex-1 container py-6 px-4 md:px-6 md:py-8">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
           <div>
-            <h1 className="text-2xl font-bold tracking-tight">Öğretmen Paneli</h1>
+            <h1 className="text-2xl font-bold tracking-tight">
+              Öğretmen Paneli
+            </h1>
             <p className="text-muted-foreground">
-              Değerlendirme kriterlerini yönetin ve öğrenci makalelerini inceleyin
+              Değerlendirme kriterlerini yönetin ve öğrenci makalelerini
+              inceleyin
             </p>
           </div>
         </div>
@@ -179,7 +218,9 @@ export default function TeacherDashboard() {
 
           <TabsContent value="criteria">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-medium">Değerlendirme Kriterlerini Yönet</h2>
+              <h2 className="text-lg font-medium">
+                Değerlendirme Kriterlerini Yönet
+              </h2>
               <Dialog>
                 <DialogTrigger asChild>
                   <Button className="flex items-center gap-2">
@@ -191,7 +232,8 @@ export default function TeacherDashboard() {
                   <DialogHeader>
                     <DialogTitle>Değerlendirme Kriteri Ekle</DialogTitle>
                     <DialogDescription>
-                      Öğrenci makalelerini değerlendirmek için yeni bir kriter oluşturun.
+                      Öğrenci makalelerini değerlendirmek için yeni bir kriter
+                      oluşturun.
                     </DialogDescription>
                   </DialogHeader>
                   <div className="grid gap-4 py-4">
@@ -200,7 +242,12 @@ export default function TeacherDashboard() {
                       <Input
                         id="name"
                         value={newCriterion.name}
-                        onChange={(e) => setNewCriterion({ ...newCriterion, name: e.target.value })}
+                        onChange={(e) =>
+                          setNewCriterion({
+                            ...newCriterion,
+                            name: e.target.value,
+                          })
+                        }
                         placeholder="örn., Özet Uzunluğu"
                       />
                     </div>
@@ -209,7 +256,12 @@ export default function TeacherDashboard() {
                       <Textarea
                         id="description"
                         value={newCriterion.description}
-                        onChange={(e) => setNewCriterion({ ...newCriterion, description: e.target.value })}
+                        onChange={(e) =>
+                          setNewCriterion({
+                            ...newCriterion,
+                            description: e.target.value,
+                          })
+                        }
                         placeholder="örn., Özet en az 150 kelime olmalıdır"
                       />
                     </div>
@@ -217,15 +269,23 @@ export default function TeacherDashboard() {
                       <Label htmlFor="type">Kriter Tipi</Label>
                       <Select
                         value={newCriterion.type}
-                        onValueChange={(value) => setNewCriterion({ ...newCriterion, type: value })}
+                        onValueChange={(value) =>
+                          setNewCriterion({ ...newCriterion, type: value })
+                        }
                       >
                         <SelectTrigger id="type">
                           <SelectValue placeholder="Tip seçin" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="word-count">Kelime Sayısı</SelectItem>
-                          <SelectItem value="keyword-count">Anahtar Kelime Sayısı</SelectItem>
-                          <SelectItem value="format-check">Format Kontrolü</SelectItem>
+                          <SelectItem value="word-count">
+                            Kelime Sayısı
+                          </SelectItem>
+                          <SelectItem value="keyword-count">
+                            Anahtar Kelime Sayısı
+                          </SelectItem>
+                          <SelectItem value="format-check">
+                            Format Kontrolü
+                          </SelectItem>
                           <SelectItem value="custom">Özel</SelectItem>
                         </SelectContent>
                       </Select>
@@ -241,7 +301,10 @@ export default function TeacherDashboard() {
                             onChange={(e) =>
                               setNewCriterion({
                                 ...newCriterion,
-                                parameters: { ...newCriterion.parameters, min: Number.parseInt(e.target.value) },
+                                parameters: {
+                                  ...newCriterion.parameters,
+                                  min: Number.parseInt(e.target.value),
+                                },
                               })
                             }
                           />
@@ -252,7 +315,10 @@ export default function TeacherDashboard() {
                             onValueChange={(value) =>
                               setNewCriterion({
                                 ...newCriterion,
-                                parameters: { ...newCriterion.parameters, section: value },
+                                parameters: {
+                                  ...newCriterion.parameters,
+                                  section: value,
+                                },
                               })
                             }
                           >
@@ -261,7 +327,9 @@ export default function TeacherDashboard() {
                             </SelectTrigger>
                             <SelectContent>
                               <SelectItem value="abstract">Özet</SelectItem>
-                              <SelectItem value="introduction">Giriş</SelectItem>
+                              <SelectItem value="introduction">
+                                Giriş
+                              </SelectItem>
                               <SelectItem value="conclusion">Sonuç</SelectItem>
                               <SelectItem value="full">Tüm Belge</SelectItem>
                             </SelectContent>
@@ -283,14 +351,22 @@ export default function TeacherDashboard() {
                   <CardHeader className="pb-2">
                     <div className="flex justify-between items-start">
                       <div>
-                        <CardTitle className="text-lg">{criterion.name}</CardTitle>
-                        <CardDescription>{criterion.description}</CardDescription>
+                        <CardTitle className="text-lg">
+                          {criterion.name}
+                        </CardTitle>
+                        <CardDescription>
+                          {criterion.description}
+                        </CardDescription>
                       </div>
                       <div className="flex gap-2">
                         <Button variant="ghost" size="icon">
                           <Edit className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="icon" onClick={() => handleDeleteCriterion(criterion.id)}>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => handleDeleteCriterion(criterion.id)}
+                        >
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
@@ -301,7 +377,8 @@ export default function TeacherDashboard() {
                       <Badge variant="outline">{criterion.type}</Badge>
                       {criterion.type === "word-count" && (
                         <span className="text-sm text-muted-foreground">
-                          Min: {criterion.parameters.min} kelime | Bölüm: {criterion.parameters.section}
+                          Min: {criterion.parameters.min} kelime | Bölüm:{" "}
+                          {criterion.parameters.section}
                         </span>
                       )}
                       {criterion.type === "keyword-count" && (
@@ -318,7 +395,8 @@ export default function TeacherDashboard() {
                   <CardContent className="flex flex-col items-center justify-center py-12">
                     <CheckCircle className="h-12 w-12 text-muted-foreground mb-4" />
                     <p className="text-muted-foreground text-center">
-                      Henüz hiç değerlendirme kriteri oluşturmadınız. Başlamak için Yeni Kriter Ekle butonuna tıklayın.
+                      Henüz hiç değerlendirme kriteri oluşturmadınız. Başlamak
+                      için Yeni Kriter Ekle butonuna tıklayın.
                     </p>
                   </CardContent>
                 </Card>
@@ -330,7 +408,10 @@ export default function TeacherDashboard() {
             <Card>
               <CardHeader>
                 <CardTitle>Öğrenci Makaleleri</CardTitle>
-                <CardDescription>Öğrencilerinizin gönderdiği makaleleri inceleyin ve değerlendirin</CardDescription>
+                <CardDescription>
+                  Öğrencilerinizin gönderdiği makaleleri inceleyin ve
+                  değerlendirin
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <Table>
@@ -356,8 +437,16 @@ export default function TeacherDashboard() {
                         <TableCell>{manuscript.student}</TableCell>
                         <TableCell>{manuscript.uploadDate}</TableCell>
                         <TableCell>
-                          <Badge variant={manuscript.status === "evaluated" ? "default" : "secondary"}>
-                            {manuscript.status === "evaluated" ? "Değerlendirildi" : "Beklemede"}
+                          <Badge
+                            variant={
+                              manuscript.status === "evaluated"
+                                ? "default"
+                                : "secondary"
+                            }
+                          >
+                            {manuscript.status === "evaluated"
+                              ? "Değerlendirildi"
+                              : "Beklemede"}
                           </Badge>
                         </TableCell>
                         <TableCell>
@@ -378,7 +467,12 @@ export default function TeacherDashboard() {
                         </TableCell>
                         <TableCell className="text-right">
                           {manuscript.status === "pending" ? (
-                            <Button size="sm" onClick={() => handleEvaluateManuscript(manuscript.id)}>
+                            <Button
+                              size="sm"
+                              onClick={() =>
+                                handleEvaluateManuscript(manuscript.id)
+                              }
+                            >
                               Değerlendir
                             </Button>
                           ) : (
@@ -399,7 +493,9 @@ export default function TeacherDashboard() {
             <Card>
               <CardHeader>
                 <CardTitle>Öğrencileri Yönet</CardTitle>
-                <CardDescription>Derslerinize atanmış öğrencileri görüntüleyin ve yönetin</CardDescription>
+                <CardDescription>
+                  Derslerinize atanmış öğrencileri görüntüleyin ve yönetin
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <Table>
@@ -457,16 +553,21 @@ export default function TeacherDashboard() {
             © {new Date().getFullYear()} Makale Analizi. Tüm hakları saklıdır.
           </p>
           <nav className="flex gap-4 sm:gap-6">
-            <Link href="/help" className="text-xs hover:underline underline-offset-4">
+            <Link
+              href="/help"
+              className="text-xs hover:underline underline-offset-4"
+            >
               Yardım
             </Link>
-            <Link href="/support" className="text-xs hover:underline underline-offset-4">
+            <Link
+              href="/support"
+              className="text-xs hover:underline underline-offset-4"
+            >
               Destek
             </Link>
           </nav>
         </div>
       </footer>
     </div>
-  )
+  );
 }
-
